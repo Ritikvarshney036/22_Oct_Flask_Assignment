@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Counter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Real-Time Counter</h1>
+    <p>Current Count: <span id="counter">0</span></p>
+    <button onclick="updateCounter()">Increment Counter</button>
+
+    <script>
+        var socket = io();
+
+        // Listen for counter updates
+        socket.on('counter_update', function(count){
+            document.getElementById('counter').textContent = count;
+        });
+
+        // Send an update request when the button is clicked
+        function updateCounter() {
+            socket.emit('update_counter');
+        }
+    </script>
+</body>
+</html>

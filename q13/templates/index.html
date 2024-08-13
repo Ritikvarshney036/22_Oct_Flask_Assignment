@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Notifications</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        #notifications {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            margin-top: 20px;
+        }
+        .notification {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Notifications</h1>
+    <div id="notifications">
+        <h2>Notifications</h2>
+    </div>
+
+    <script>
+        var socket = io();
+
+        // Listen for new notifications
+        socket.on('new_notification', function(data){
+            var notificationDiv = document.createElement('div');
+            notificationDiv.className = 'notification';
+            notificationDiv.textContent = data.message;
+            document.getElementById('notifications').appendChild(notificationDiv);
+        });
+    </script>
+</body>
+</html>
